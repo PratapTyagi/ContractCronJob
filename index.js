@@ -15,14 +15,13 @@ app.use(express.json());
 
 app.get("/deploy", async (req, res) => {
   try {
-    exec("sh deploy.sh", (error, stdout, stderr) => {
+    exec("sh ./shell-scripts/deploy.sh", (error, stdout, stderr) => {
       if (error) {
         console.log(`Error: ${error.message}`);
       }
       if (stderr) {
         console.log(`exec error: ${stderr}`);
       }
-      console.log(stdout);
     });
   } catch (error) {
     console.log(error);

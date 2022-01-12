@@ -1,21 +1,12 @@
 const { contractAddress } = require("./parameters.json");
-const { ethers } = require("ethers");
 const fs = require("fs");
 
 async function main() {
-  const provider = new ethers.providers.getDefaultProvider(
-    "http://localhost:8545"
-  );
-  const contract = new ethers.Contract(
-    contractAddress,
-    JSON.parse(
-      fs.readFileSync("artifacts/contracts/Greeter.sol/Greeter.json").toString()
-    ).abi,
-    provider.getSigner()
-  );
+  const Greeter = await ethers.getContractFactory("Greeter");
+  const contract = await Greeter.attach(contractAddress);
 
   try {
-    await contract.setGreeting("Crone job");
+    await contract.setGreeting("Vishal Sir");
   } catch (error) {
     console.log("Error: ", error);
   }
